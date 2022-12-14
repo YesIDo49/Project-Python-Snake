@@ -1,5 +1,6 @@
 import pygame
-import time
+from time import sleep
+from threading import Timer
 import random
 
 from colorClass import Color
@@ -29,7 +30,39 @@ fps = pygame.time.Clock()
 
 score = 0
 
+converted_score = str(score)
+
+score_text = 'Score : ', type(converted_score)
+
+font = pygame.font.Font('freesansbold.ttf', 16)
+
+text = font.render('Score : ' + str(score), True, c.black)
+
+# create a rectangular object for the
+# text surface object
+textRect = text.get_rect()
+
+# set the center of the rectangular object.
+textRect.center = (w.screen_x // 2, 10)
+
+delay = 3
+getTicksLastFrame = 0
+
+timer = 0
+
+
 while True:
+
+    t = pygame.time.get_ticks()
+    # deltaTime in seconds.
+    deltaTime = (t - getTicksLastFrame) / 1000.0
+    getTicksLastFrame = t
+
+    timer += deltaTime
+
+    if timer > 10:
+        f.fruit_appear = False
+        timer = 0
 
     # How the snake moves
     s.snakeMovement()
@@ -40,26 +73,33 @@ while True:
         score += 10
 
         # pygame.time.set_timer(my_event, 1000)
-        f.fruit_spawn = False
+        f.fruit_appear = False
+        timer = 0
+
 
     else:
         s.snake_body.pop()
-        # pygame.time.set_timer(my_event, 0)
 
 
-    if not f.fruit_spawn:
+    if not f.fruit_appear:
         f.fruit_position = [random.randrange(1, (w.screen_x // 10)) * 10,
                           random.randrange(1, (w.screen_y // 10)) * 10]
 
 
+    f.fruit_appear = True
 
-    f.fruit_spawn = True
+
 
     # Have to refresh with white otherwise the snake keep growing
     w.game_window.fill(c.white)
 
     # Lines background (like a notebook)
     w.linesBg()
+
+
+    # Score show
+    w.game_window.blit(text, textRect)
+
 
 
     for loc in s.snake_body:
@@ -82,11 +122,18 @@ while True:
         if s.snake_position[0] == pixel[0] and s.snake_position[1] == pixel[1]:
             w.gameOver()
 
+    text = font.render('Score : ' + str(score), True, c.black)
 
+    # create a rectangular object for the
+    # text surface object
+    textRect = text.get_rect()
 
+    # set the center of the rectangular object.
+    textRect.center = (w.screen_x // 2, 10)
 
     # Refresh game screen
     pygame.display.update()
 
     # Frame Per Second
     fps.tick(s.snake_speed)
+

@@ -41,6 +41,7 @@ class Window:
     # game over function
     def gameOver(self):
 
+
         # after 1 seconds we will quit the program
         time.sleep(1)
 
