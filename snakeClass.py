@@ -2,13 +2,13 @@ import pygame
 
 class Snake:
     def __init__(self):
-        # defining snake default position
+        # snake position at the start
         self.snake_position = [50, 10]
         self.snake_speed = 10
         self.direction = 'right'
         self.change_to = self.direction
 
-        # defining first 4 blocks of snake body
+        # blocks of the snake body
         self.snake_body = [[50, 10],
                       [40, 10],
                       [30, 10],
@@ -35,7 +35,7 @@ class Snake:
             self.chooseSpeed()
 
     def snakeMovement(self):
-        # handling key events
+        # Key movements
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
@@ -48,9 +48,7 @@ class Snake:
                     self.change_to = 'right'
 
 
-        # If two keys pressed simultaneously
-        # we don't want snake to move into two
-        # directions simultaneously
+        # Movements conditions
         if self.change_to == 'up' and self.direction != 'down':
             self.direction = 'up'
         if self.change_to == 'down' and self.direction != 'up':

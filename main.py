@@ -13,7 +13,6 @@ w = Window()
 f = Fruit()
 
 # Choose your option
-
 c.SnakeColor()
 
 w.chooseSizeScreen()
@@ -44,7 +43,6 @@ dt = 0
 while True:
 
     t = pygame.time.get_ticks()
-    # deltaTime in seconds.
     deltaTime = (t - getTicksLastFrame) / 1000.0
     getTicksLastFrame = t
     timer += deltaTime
@@ -57,7 +55,6 @@ while True:
     if countdown <= 0:
         countdown = 5
 
-    # How the snake moves
     s.snakeMovement()
 
     # If the snake is on the fruit it grows and the fruit change position
@@ -90,10 +87,8 @@ while True:
 
     scoreRect = scoreText.get_rect()
 
-    # set the center of the rectangular object.
     scoreRect.center = (w.screen_x // 2, 10)
 
-    # Score show
     w.game_window.blit(scoreText, scoreRect)
 
     txt = font.render('Fruit reset : ' + str(int(countdown)), True, c.black)
@@ -105,7 +100,6 @@ while True:
                          pygame.Rect(loc[0], loc[1], 10, 10))
     pygame.draw.rect(w.game_window, c.red, pygame.Rect(
         f.fruit_position[0], f.fruit_position[1], 10, 10))
-
 
    #Game Over score
     gameOverText = font2.render('Final Score : ' + str(score) + ' | Total fruit : ' + str(fruitPoint), True, c.red)
