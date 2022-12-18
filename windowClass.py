@@ -39,11 +39,13 @@ class Window:
 
 
     # game over function
-    def gameOver(self):
+    def gameOver(self, gameOverText, gameOverRect):
 
+        self.game_window.blit(gameOverText, gameOverRect)
+        pygame.display.flip()
 
-        # after 1 seconds we will quit the program
-        time.sleep(1)
+        # after 3 seconds we will quit the program
+        time.sleep(3)
 
         # deactivating pygame library
         pygame.quit()
